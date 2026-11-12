@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Rua X - Segurança Comunitária</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f6f8; margin: 0; padding: 20px; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; font-size: 24px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        select, textarea, input { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+        button { background-color: #27ae60; color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 4px; font-size: 16px; }
+        button:hover { background-color: #219653; }
+        .card { background: #eef2f3; padding: 10px; margin-top: 10px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Rua X - Registro de Ocorrências (ODS 11)</h1>
+        
+        <form action="/cadastrar" method="POST">
+            <div class="form-group">
+                <label for="tipo">Tipo de Ocorrência *</label>
+                <select id="tipo" name="tipo" required>
+                    <option value="⚠️ Movimentação Suspeita">⚠️ Movimentação Suspeita</option>
+                    <option value="🚗 Veículo Suspeito">🚗 Veículo Suspeito</option>
+                    <option value="🔓 Portão Aberto">🔓 Portão Aberto</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="descricao">Descrição Detalhada *</label>
+                <textarea id="descricao" name="descricao" rows="3" required placeholder="Descreva o que aconteceu..."></textarea>
+            </div>
+
+            <button type="submit">Publicar Alerta</button>
+        </form>
+
+        <h3 style="margin-top: 30px;">Feed de Alertas Recentes</h3>
+        {% for oc in ocorrencias %}
+            <div class="card">
+                <strong>{{ oc.tipo }}</strong>
+                <p>{{ oc.descricao }}</p>
+            </div>
+        {% else %}
+            <p style="color: #666;">Nenhuma ocorrência registrada ainda.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
